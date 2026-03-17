@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keys.so Options Comparison</title>
+  <style>
+    :root {
+      --bg: #f4f7f8;
+      --card: #ffffff;
+      --line: #d4dde0;
+      --text: #1f2d33;
+      --muted: #5b7079;
+      --accent: #0f766e;
+      --good: #d1fae5;
+      --warn: #fff7cc;
+      --mid: #e6f4ff;
+      --high: #ffe4e6;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg, #eaf2f3 0%, var(--bg) 70%);
+      color: var(--text);
+      line-height: 1.45;
+      padding: 24px;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      letter-spacing: 0.2px;
+    }
+
+    p.subtitle {
+      margin: 0 0 18px;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--line);
+      background: #f8fbfc;
+      color: #1d3a45;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 10px;
+      background: #e8f0f2;
+      border-bottom: 2px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    tbody td {
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    tbody tr:hover { background: #f7fbfc; }
+
+    .ctx-low { background: var(--good); }
+    .ctx-mid { background: var(--mid); }
+    .ctx-high { background: var(--high); }
+    .ctx-medhigh { background: var(--warn); }
+
+    .grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .note {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: #fbfefe;
+    }
+
+    .note h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      color: var(--accent);
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Keys.so: MCP vs Skills Comparison</h1>
+    <p class="subtitle">Reference for choosing the smallest effective option per task.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Type</th>
+          <th>Best for</th>
+          <th>API breadth</th>
+          <th>Typical calls</th>
+          <th>Expected context load</th>
+          <th>Tradeoff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>MCP only</strong><br><span class="badge">150 tools</span></td>
+          <td>Raw tool surface</td>
+          <td>Unknown or highly custom workflows</td>
+          <td>Full API</td>
+          <td>Any, no routing guardrails</td>
+          <td class="ctx-high"><strong>High</strong><br>~6k-20k+ tokens</td>
+          <td>Maximum flexibility, highest context cost.</td>
+        </tr>
+        <tr>
+          <td><strong>Skill 1</strong><br><code>keyso-api-router</code></td>
+          <td>Wide router</td>
+          <td>Multi-step analytics, reports, monitoring, compare, async flows</td>
+          <td>Broad but guided</td>
+          <td>1-3 starter calls, then expand by family</td>
+          <td class="ctx-medhigh"><strong>Medium</strong><br>~2k-8k tokens</td>
+          <td>Good balance of power vs context.</td>
+        </tr>
+        <tr>
+          <td><strong>Skill 2</strong><br><code>keyso-quick-audit</code></td>
+          <td>Narrow workflow</td>
+          <td>Fast domain/keyword snapshot + one follow-up</td>
+          <td>Narrow (3-5 endpoints)</td>
+          <td>1 primary + max 1 extra</td>
+          <td class="ctx-mid"><strong>Low</strong><br>~0.8k-2.5k tokens</td>
+          <td>Very fast, less suitable for deep analysis.</td>
+        </tr>
+        <tr>
+          <td><strong>Skill 3</strong><br><code>keyso-domain-dashboard-lite</code></td>
+          <td>Micro skill</td>
+          <td>Single domain snapshot only</td>
+          <td>Ultra narrow (1 endpoint)</td>
+          <td>Exactly 1 endpoint</td>
+          <td class="ctx-low"><strong>Very low</strong><br>~0.4k-1.2k tokens</td>
+          <td>Cheapest context, strict scope.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grid">
+      <div class="note">
+        <h3>Choose MCP only</h3>
+        <div>When task is unusual and no skill fit is clear.</div>
+      </div>
+      <div class="note">
+        <h3>Choose Skill 1</h3>
+        <div>When user asks complete investigations across multiple report families.</div>
+      </div>
+      <div class="note">
+        <h3>Choose Skill 2</h3>
+        <div>When user needs a quick answer around one domain or one keyword.</div>
+      </div>
+      <div class="note">
+        <h3>Choose Skill 3</h3>
+        <div>When you only need baseline domain health in one call.</div>
+      </div>
+    </div>
+
+    <div class="small">
+      Context-load numbers are practical estimates for prompt+skill+routing overhead in typical sessions and may vary by client.
+    </div>
+  </div>
+</body>
+</html>

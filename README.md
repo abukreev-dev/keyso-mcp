@@ -70,6 +70,7 @@ KEYSO_TOKEN = "<ваш_api_токен>"
 В репозитории добавлены skills:
 - `skills/keyso-api-router` — широкий роутер по всему API.
 - `skills/keyso-quick-audit` — узкий режим для быстрых domain/keyword проверок.
+- `skills/keyso-domain-dashboard-lite` — micro-режим для single endpoint `/report/simple/domain_dashboard`.
 
 `keyso-api-router` нужен для больших задач, чтобы:
 - не грузить весь OpenAPI в контекст;
@@ -87,7 +88,11 @@ KEYSO_TOKEN = "<ваш_api_токен>"
 mkdir -p ~/.codex/skills
 cp -R skills/keyso-api-router ~/.codex/skills/keyso-api-router
 cp -R skills/keyso-quick-audit ~/.codex/skills/keyso-quick-audit
+cp -R skills/keyso-domain-dashboard-lite ~/.codex/skills/keyso-domain-dashboard-lite
 ```
+
+Сравнение вариантов в HTML:
+- `docs/keyso-options-comparison.html`
 
 ## Примечания
 
