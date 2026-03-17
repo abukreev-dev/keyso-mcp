@@ -1,0 +1,19 @@
+{
+  "name": "keyso-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Keys.so API generated from apidoc.keys.so",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "update:openapi": "node scripts/update-openapi.js",
+    "regen": "npm run update:openapi"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "zod": "^4.3.6"
+  }
+}
