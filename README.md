@@ -65,20 +65,28 @@ KEYSO_TOKEN = "<ваш_api_токен>"
 }
 ```
 
-## Skill для экономии контекста
+## Skills для экономии контекста
 
-В репозитории добавлен skill: `skills/keyso-api-router`.
+В репозитории добавлены skills:
+- `skills/keyso-api-router` — широкий роутер по всему API.
+- `skills/keyso-quick-audit` — узкий режим для быстрых domain/keyword проверок.
 
-Он нужен для больших задач по Keys.so API, чтобы:
+`keyso-api-router` нужен для больших задач, чтобы:
 - не грузить весь OpenAPI в контекст;
 - выбирать только релевантные endpoint-группы;
 - начинать с минимального набора вызовов.
+
+`keyso-quick-audit` нужен для коротких задач, чтобы:
+- использовать только 1 основной endpoint;
+- добавлять максимум 1 дополнительный endpoint;
+- держать минимальный размер контекста.
 
 Установка skill в локальные Codex skills:
 
 ```bash
 mkdir -p ~/.codex/skills
 cp -R skills/keyso-api-router ~/.codex/skills/keyso-api-router
+cp -R skills/keyso-quick-audit ~/.codex/skills/keyso-quick-audit
 ```
 
 ## Примечания
