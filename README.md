@@ -34,14 +34,29 @@ npm run update:openapi
 
 Скрипт заново вытаскивает OpenAPI из `apidoc.keys.so` и обновляет `openapi.json`.
 
-## Пример MCP-конфига
+## Конфиги MCP
+
+Используются относительные пути от корня этого репозитория.
+
+### Codex CLI (`~/.codex/config.toml`)
+
+```toml
+[mcp_servers.keyso]
+command = "node"
+args = ["src/index.js"]
+
+[mcp_servers.keyso.env]
+KEYSO_TOKEN = "<ваш_api_токен>"
+```
+
+### Claude Code (MCP config JSON)
 
 ```json
 {
   "mcpServers": {
     "keyso": {
       "command": "node",
-      "args": ["/ABS/PATH/keyso-mcp/src/index.js"],
+      "args": ["src/index.js"],
       "env": {
         "KEYSO_TOKEN": "<ваш_api_токен>"
       }
