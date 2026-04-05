@@ -78,7 +78,7 @@ function zodTypeFromOpenApiSchema(schema) {
     case "array":
       return z.array(z.any());
     case "object":
-      return z.record(z.any());
+      return z.object({}).catchall(z.any());
     case "string":
     default:
       return z.string();
@@ -162,8 +162,8 @@ function buildToolDefinitions(spec) {
         const bodyRequired = requestBody.required === true;
         const bodyDescription = "JSON body";
         const bodySchema = bodyRequired
-          ? z.record(z.any()).describe(bodyDescription)
-          : z.record(z.any()).describe(bodyDescription).optional();
+          ? z.object({}).catchall(z.any()).describe(bodyDescription)
+          : z.object({}).catchall(z.any()).describe(bodyDescription).optional();
         inputSchema.body = bodySchema;
         if (bodyRequired) {
           requiredInputNames.add("body");
@@ -326,8 +326,8 @@ function registerGenericTool(server) {
       inputSchema: {
         method: z.enum(["GET", "POST", "PUT", "PATCH", "DELETE"]),
         path: z.string().describe("Path like /report/simple/domain_dashboard"),
-        query: z.record(z.any()).optional().describe("Query params object"),
-        body: z.record(z.any()).optional().describe("JSON body for write methods"),
+        query: z.object({}).catchall(z.any()).optional().describe("Query params object"),
+        body: z.object({}).catchall(z.any()).optional().describe("JSON body for write methods"),
         base_url: z.string().optional().describe("Override API base URL"),
         token: z.string().optional().describe("API token override (fallback: KEYSO_TOKEN env)"),
       },
