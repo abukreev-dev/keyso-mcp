@@ -53,6 +53,63 @@ npm start
 Опционально:
 - `KEYSO_API_BASE_URL` — переопределить базовый URL API (по умолчанию `https://api.keys.so`).
 
+Smoke-test MCP handshake:
+
+```bash
+npm run smoke:mcp
+```
+
+Скрипт поднимает сервер как дочерний процесс, делает `initialize` и `listTools`, затем проверяет, что клиент реально видит `keyso_api_request` и полный набор tools.
+
+## Как проверить после настройки
+
+После того как вы:
+- добавили `keyso` в `~/.codex/config.toml`;
+- установили skills в `~/.codex/skills`;
+- перезапустили Codex CLI;
+
+проверьте систему в 2 шага.
+
+### 1. Проверить MCP handshake локально
+
+Запустите:
+
+```bash
+npm run smoke:mcp
+```
+
+Ожидаемый результат:
+- `ok: true`
+- `server.name = keyso-api-mcp`
+- `toolCount` около `151`
+- `hasGenericTool: true`
+
+Это подтверждает, что:
+- MCP server стартует;
+- `initialize` проходит;
+- `listTools` проходит;
+- клиент реально видит инструменты сервера.
+
+### 2. Проверить skill на живом сценарии
+
+В Codex после перезапуска выполните, например:
+
+```text
+Используй skill keyso-domain-dashboard-lite. Проверь domain=ozon.ru, base=msk и дай короткий snapshot.
+```
+
+Или:
+
+```text
+Используй skill keyso-quick-audit. Проверь domain=ozon.ru, base=msk и покажи organic competitors.
+```
+
+Что считать нормальным результатом:
+- агент не сообщает, что `keyso` MCP недоступен;
+- ответ строится на реальных данных Keys.so, а не на абстрактных рассуждениях;
+- `keyso-domain-dashboard-lite` использует один базовый endpoint;
+- `keyso-quick-audit` не разрастается дальше одного follow-up endpoint без необходимости.
+
 ## Обновление спецификации
 
 ```bash

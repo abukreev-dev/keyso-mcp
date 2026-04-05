@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "smoke:mcp": "node scripts/smoke-mcp.js",
     "update:openapi": "node scripts/update-openapi.js",
     "regen": "npm run update:openapi"
   },
